@@ -4,7 +4,7 @@ import { history } from '@umijs/max';
 import { requestConfig } from './requestConfig';
 import React from 'react';
 import Settings from '../config/defaultSettings';
-import { getLoginUserUsingGet } from '@/services/stephen-backend/userController';
+import {getLoginUserUsingGet} from '@/services/stephen-backend/userController';
 
 const loginPath = '/user/login';
 

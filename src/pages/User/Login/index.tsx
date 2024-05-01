@@ -1,15 +1,15 @@
-import {Footer} from '@/components';
-import {LoginFormPage} from '@ant-design/pro-components';
-import {Helmet, history, useModel} from '@umijs/max';
-import {message, Tabs} from 'antd';
-import React, {useEffect, useState} from 'react';
-import {createStyles} from 'antd-style';
-import {BACKGROUND_IMAGE, STEPHEN_SUBTITLE, STEPHEN_TITLE} from '@/constants';
-import {userLoginUsingPost, userRegisterUsingPost} from '@/services/stephen-backend/userController';
+import { Footer } from '@/components';
+import { LoginFormPage } from '@ant-design/pro-components';
+import { Helmet, history, useModel } from '@umijs/max';
+import { message, Tabs } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { createStyles } from 'antd-style';
+import { BACKGROUND_IMAGE, STEPHEN_SUBTITLE, STEPHEN_TITLE } from '@/constants';
 import RegisterPage from '@/pages/User/Login/components/RegisterPage';
 import LoginPage from '@/pages/User/Login/components/LoginPage';
+import {userLoginUsingPost, userRegisterUsingPost} from '@/services/stephen-backend/userController';
 
-const useStyles = createStyles(({token}) => {
+const useStyles = createStyles(({ token }) => {
   return {
     action: {
       marginLeft: '8px',
@@ -19,8 +19,8 @@ const useStyles = createStyles(({token}) => {
       cursor: 'pointer',
       transition: 'color 0.3s',
       '&:hover': {
-        color: token.colorPrimaryActive
-      }
+        color: token.colorPrimaryActive,
+      },
     },
     container: {
       display: 'flex',
@@ -28,11 +28,12 @@ const useStyles = createStyles(({token}) => {
       height: '100vh',
       overflow: 'auto',
       backgroundImage:
-        'url(\'https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr\')',
-      backgroundSize: '100% 100%'
-    }
+        "url('https://mdn.alipayobjects.com/yuyan_qk0oxh/afts/img/V-_oS6r-i7wAAAAAAAAAAAAAFl94AQBr')",
+      backgroundSize: '100% 100%',
+    },
   };
 });
+
 
 const Login: React.FC = () => {
   const [type, setType] = useState<string>('login');
@@ -44,17 +45,16 @@ const Login: React.FC = () => {
     try {
       // 登录
       const res = await userLoginUsingPost({
-        ...values
+        ...values,
       });
-
-      const defaultLoginSuccessMessage = '登录成功！';
-      message.success(defaultLoginSuccessMessage);
+      const hide = message.success('登录成功！');
       // 保存已登录的用户信息
       setInitialState({
         ...initialState,
-        currentUser: res?.data
+        currentUser: res?.data,
       });
       setRedirected(true); // 设置重定向状态为 true
+      hide()
       return;
     } catch (error: any) {
       const defaultLoginFailureMessage = `登录失败${error.message}, 请重试！`;

@@ -5,7 +5,7 @@ import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
 import UpdateModal from './components/UpdateModal';
 import {deleteUserUsingPost, listUserByPageUsingPost} from '@/services/stephen-backend/userController';
-import CreateModal from '@/pages/Admin/User/components/CreateModal';
+import CreateModal from '@/pages/Admin/UserList/components/CreateModal';
 
 /**
  * 删除节点
@@ -33,7 +33,7 @@ const handleDelete = async (row: API.DeleteRequest) => {
  * 用户管理列表
  * @constructor
  */
-const UserAdminPage: React.FC = () => {
+const UserList: React.FC = () => {
   // 新建窗口的Modal框
   const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
   // 更新窗口的Modal框
@@ -75,6 +75,16 @@ const UserAdminPage: React.FC = () => {
       title: '简介',
       dataIndex: 'userProfile',
       valueType: 'textarea',
+    },
+    {
+      title: '电话',
+      dataIndex: 'userPhone',
+      valueType: 'text',
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'userEmail',
+      valueType: 'text',
     },
     {
       title: '权限',
@@ -217,4 +227,4 @@ const UserAdminPage: React.FC = () => {
     </PageContainer>
   );
 };
-export default UserAdminPage;
+export default UserList;
