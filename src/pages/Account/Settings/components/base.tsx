@@ -1,37 +1,32 @@
-import { UploadOutlined } from '@ant-design/icons';
-import { ProForm, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
-import { Button, message, Upload } from 'antd';
+import { useModel } from '@umijs/max';
+
+import { Avatar, Button, message, Upload } from 'antd';
 import React from 'react';
-import useStyles from './index.style';
-import { useModel } from '@@/exports';
 import { updateUserUsingPost } from '@/services/stephen-backend/userController';
+import { ProCard, ProForm, ProFormText, ProFormTextArea } from '@ant-design/pro-components';
+import { UploadOutlined } from '@ant-design/icons';
+
+// 头像组件 方便以后独立，增加裁剪之类的功能
+const AvatarView = () => (
+  <>
+    <Upload showUploadList={false}>
+      <Button>
+        <UploadOutlined />
+        更换头像
+      </Button>
+    </Upload>
+  </>
+);
+
+
 
 const BaseView: React.FC = () => {
-  const { styles } = useStyles();
   const { initialState } = useModel('@@initialState');
   const currentUser = initialState?.currentUser;
 
-  // 头像组件 方便以后独立，增加裁剪之类的功能
-  const AvatarView = ({ avatar }: { avatar: string }) => (
-    <>
-      <div className={styles.avatar_title}>头像</div>
-      <div className={styles.avatar}>
-        <img src={avatar} alt="avatar" />
-      </div>
-      <Upload showUploadList={false}>
-        <div className={styles.button_view}>
-          <Button>
-            <UploadOutlined />
-            更换头像
-          </Button>
-        </div>
-      </Upload>
-    </>
-  );
-
   const getAvatarURL = () => {
     if (currentUser) {
-      if (currentUser.userAvatar) {
+      if (currentUser?.userAvatar) {
         return currentUser.userAvatar;
       }
       return 'https://gw.alipayobjects.com/zos/rmsportal/BiazfanxmamNRoxxVxka.png';
@@ -41,11 +36,11 @@ const BaseView: React.FC = () => {
 
   const handleUpdate = async (values: API.UserUpdateRequest) => {
     const hide = message.loading('正在更新');
-    console.log(values)
+    console.log(values);
     try {
       await updateUserUsingPost({
         ...values,
-        id: currentUser?.id
+        id: currentUser?.id,
       });
       hide();
       message.success('更新成功');
@@ -58,42 +53,42 @@ const BaseView: React.FC = () => {
   };
 
   return (
-    <div className={styles.baseView}>
-      {
-        <>
-          <div className={styles.left}>
-            <ProForm
-              layout="vertical"
-              onFinish={async (values) => {
-                await handleUpdate(values);
-              }}
-              submitter={{
-                searchConfig: {
-                  submitText: '更新基本信息',
-                },
-                render: (_, dom) => dom[1],
-              }}
-              initialValues={{
-                ...currentUser,
-              }}
-            >
-              <ProFormText width="md" name="userName" label="昵称" placeholder="昵称" />
-              <ProFormText width="md" name="userEmail" label="邮箱" placeholder="邮箱" />
-              <ProFormText width="md" name="userPhone" label="电话" placeholder="电话" />
-              <ProFormTextArea
-                width="md"
-                name="userProfile"
-                label="个人简介"
-                placeholder="个人简介"
-              />
-            </ProForm>
-          </div>
-          <div className={styles.right}>
-            <AvatarView avatar={getAvatarURL()} />
-          </div>
-        </>
-      }
-    </div>
+    <ProCard title="更新个人基本信息" extra={new Date().toLocaleDateString()} headerBordered>
+      <ProCard title="用户基本信息" colSpan="50%">
+        <ProForm
+          layout="vertical"
+          onFinish={async (values) => {
+            await handleUpdate(values);
+          }}
+          submitter={{
+            searchConfig: {
+              submitText: '更新基本信息',
+            },
+            render: (_, dom) => dom[1],
+          }}
+          initialValues={{
+            ...currentUser,
+          }}
+        >
+          <ProFormText width={"md"} colProps={{md: 12, xl: 8}} name="userName" label="用户名"/>
+          <ProFormText width={"md"} colProps={{md: 12, xl: 8}} name="userPhone" label="电话"/>
+          <ProFormText width={"md"} colProps={{md: 12, xl: 8}} name="userEmail" label="邮箱"/>
+          <ProFormTextArea
+            width={'md'}
+            colProps={{md: 12, xl: 8}}
+            name="userProfile"
+            label="简介"
+          />
+        </ProForm>
+      </ProCard>
+      <ProCard title="更新用户头像">
+
+        <div>
+          <Avatar size={120} src={getAvatarURL()}/>
+        </div>
+        <AvatarView/>
+      </ProCard>
+    </ProCard>
   );
 };
 export default BaseView;

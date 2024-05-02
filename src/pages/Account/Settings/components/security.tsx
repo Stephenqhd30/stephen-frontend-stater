@@ -1,7 +1,6 @@
-import { List } from 'antd';
 import React from 'react';
+import {ProList} from '@ant-design/pro-components';
 
-type Unpacked<T> = T extends (infer U)[] ? U : T;
 
 const passwordStrength = {
   strong: <span className="strong">强</span>,
@@ -43,19 +42,30 @@ const SecurityView: React.FC = () => {
     },
   ];
 
-  const data = getData();
   return (
-    <>
-      <List<Unpacked<typeof data>>
-        itemLayout="horizontal"
-        dataSource={data}
-        renderItem={(item) => (
-          <List.Item actions={item.actions}>
-            <List.Item.Meta title={item.title} description={item.description} />
-          </List.Item>
-        )}
-      />
-    </>
+    <ProList
+      rowKey="id"
+      dataSource={getData()}
+      showActions="hover"
+      metas={{
+        title: {
+          dataIndex: 'title',
+        },
+
+        description: {
+          dataIndex: 'description',
+        },
+        actions: {
+          render: () => [
+            <a
+              key="link"
+            >
+              编辑
+            </a>,
+          ],
+        },
+      }}
+    />
   );
 };
 

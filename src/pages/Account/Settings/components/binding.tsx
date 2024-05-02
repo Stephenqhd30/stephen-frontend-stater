@@ -1,45 +1,67 @@
 import { AlipayOutlined, DingdingOutlined, TaobaoOutlined } from '@ant-design/icons';
-import { List } from 'antd';
-import React, { Fragment } from 'react';
+import React from 'react';
+import {ProList} from '@ant-design/pro-components';
+import {Space, Tag} from 'antd';
 
 const BindingView: React.FC = () => {
   const getData = () => [
     {
       title: '绑定淘宝',
       description: '当前未绑定淘宝账号',
-      actions: [<a key="Bind">绑定</a>],
       avatar: <TaobaoOutlined className="taobao" />,
     },
     {
       title: '绑定支付宝',
       description: '当前未绑定支付宝账号',
-      actions: [<a key="Bind">绑定</a>],
       avatar: <AlipayOutlined className="alipay" />,
     },
     {
       title: '绑定钉钉',
       description: '当前未绑定钉钉账号',
-      actions: [<a key="Bind">绑定</a>],
       avatar: <DingdingOutlined className="dingding" />,
     },
   ];
 
   return (
-    <Fragment>
-      <List
-        itemLayout="horizontal"
-        dataSource={getData()}
-        renderItem={(item) => (
-          <List.Item actions={item.actions}>
-            <List.Item.Meta
-              avatar={item.avatar}
-              title={item.title}
-              description={item.description}
-            />
-          </List.Item>
-        )}
-      />
-    </Fragment>
+    <ProList
+      rowKey="id"
+      dataSource={getData()}
+      showActions="hover"
+      metas={{
+        title: {
+          dataIndex: 'title',
+        },
+        avatar: {
+          dataIndex: 'avatar',
+          editable: false,
+        },
+        description: {
+          dataIndex: 'description',
+        },
+        subTitle: {
+          render: () => {
+            return (
+              <Space size={0}>
+                <Tag color="blue">Ant Design</Tag>
+                <Tag color="#5BD8A6">TechUI</Tag>
+              </Space>
+            );
+          },
+        },
+        actions: {
+          render: (text, row, index, action) => [
+            <a
+              onClick={() => {
+                action?.startEditable(row.title);
+              }}
+              key="link"
+            >
+              绑定
+            </a>,
+          ],
+        },
+      }}
+    />
   );
 };
 

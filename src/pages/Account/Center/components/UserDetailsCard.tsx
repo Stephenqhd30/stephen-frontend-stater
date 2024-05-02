@@ -1,83 +1,18 @@
-import { ProDescriptions } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Avatar, Card, Space } from 'antd';
 import React from 'react';
 import { useModel } from '@@/exports';
-import { ClusterOutlined, ContactsOutlined, HomeOutlined } from '@ant-design/icons';
-import useStyles from '@/pages/Account/Center/center.style';
+import {ProCard, ProDescriptions} from '@ant-design/pro-components';
 
-/**
- * 常见弹窗
- * @param props
- * @constructor
- */
-const UserBaseInfo: React.FC<API.User> = () => {
-  const { styles } = useStyles();
+const UserDetailsCard: React.FC<API.User> = () => {
   const { initialState } = useModel('@@initialState');
   const currentUser = initialState?.currentUser;
 
-  const initStyle = {
-    minHeight: 500,
-    minWidth: 380,
-    marginBottom: 24,
-    boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-  }
-  //  渲染用户信息
-  const renderUserInfo = ({ userRole, userName, userProfile }: Partial<API.User>) => {
-    return (
-      <div className={styles.detail}>
-        <p>
-          <ContactsOutlined
-            style={{
-              marginRight: 8,
-            }}
-          />
-          {userName}
-        </p>
-        <p>
-          <ClusterOutlined
-            style={{
-              marginRight: 8,
-            }}
-          />
-          {userRole}
-        </p>
-        <p>
-          <HomeOutlined
-            style={{
-              marginRight: 8,
-            }}
-          />
-          {userProfile}
-        </p>
-      </div>
-    );
-  };
-
   return (
-    <Space size={'middle'}>
-      <Card
-        bordered={false}
-        style={initStyle}
-      >
-        {currentUser && (
-          <div>
-            <div className={styles.avatarHolder}>
-              <Avatar alt="" size={100} src={currentUser.userAvatar} />
-              <div className={styles.name}>{currentUser.userName}</div>
-              <div>{currentUser?.userProfile}</div>
-            </div>
-            {renderUserInfo(currentUser)}
-          </div>
-        )}
-      </Card>
-      <Card
-        style={initStyle}
-      >
+    <>
+      <ProCard>
         <ProDescriptions<API.User>
           title={
             <>
-              <Avatar src={currentUser?.userAvatar} alt={currentUser?.userName} size={'large'} />
               <span>{currentUser?.userName}</span>
             </>
           }
@@ -147,8 +82,8 @@ const UserBaseInfo: React.FC<API.User> = () => {
             },
           ]}
         />
-      </Card>
-    </Space>
+      </ProCard>
+    </>
   );
 };
-export default UserBaseInfo;
+export default UserDetailsCard;
