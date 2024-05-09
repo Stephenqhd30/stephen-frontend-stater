@@ -1,10 +1,9 @@
 import { AvatarDropdown, Footer } from '@/components';
-import type { RunTimeLayoutConfig } from '@umijs/max';
-import { history } from '@umijs/max';
+import { history, Link, RunTimeLayoutConfig } from '@umijs/max';
 import { requestConfig } from './requestConfig';
 import React from 'react';
 import Settings from '../config/defaultSettings';
-import {getLoginUserUsingGet} from '@/services/stephen-backend/userController';
+import { getLoginUserUsingGet } from '@/services/stephen-backend/userController';
 
 const loginPath = '/user/login';
 
@@ -37,6 +36,27 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       render: () => {
         return <AvatarDropdown />;
       },
+    },
+    menuItemRender: (menuItemProps, defaultDom) => {
+      if (menuItemProps.isUrl || !menuItemProps.path) {
+        return defaultDom;
+      }
+      // 支持二级菜单显示icon
+      return (
+        <Link to={menuItemProps.path}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            {menuItemProps.pro_layout_parentKeys &&
+              menuItemProps.pro_layout_parentKeys.length > 0 &&
+              menuItemProps.icon}
+            <span>{defaultDom}</span>
+          </div>
+        </Link>
+      );
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
