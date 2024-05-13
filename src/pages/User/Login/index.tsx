@@ -55,7 +55,7 @@ const Login: React.FC = () => {
       });
       // 保存token
       // @ts-ignore
-      sessionStorage.setItem("token", res?.data?.token);
+      window.localStorage.setItem("token", res?.data?.token);
       setRedirected(true); // 设置重定向状态为 true
       hide()
       return;
