@@ -19,6 +19,7 @@ export const AvatarName = () => {
 };
 
 export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
+  const { initialState, setInitialState } = useModel('@@initialState');
   /**
    * 退出登录，并且将当前的 url 保存
    */
@@ -39,7 +40,6 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     }
   };
 
-  const { initialState, setInitialState } = useModel('@@initialState');
 
   const onMenuClick = useCallback(
     (event: MenuInfo) => {

@@ -23,16 +23,6 @@ export const requestConfig: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
-      // 每次发送请求时从 localStorage 中获取最新的令牌
-      const token = window.localStorage.getItem('token');
-      if (token) {
-        config.headers = {
-          // 在请求头中携带 JWT 令牌
-          ...config.headers,
-          token: token,
-          'Content-Type': 'application/json',
-        };
-      }
       return config;
     },
   ],
