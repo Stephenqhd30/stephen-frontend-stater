@@ -7,7 +7,7 @@ export const STEPHEN_DEFAULT_MESSAGE = 'Stephen的爆米花';
 
 export const baseURL = 'http://localhost:8080';
 
-export const BACKGROUND_IMAGE = "https://butterfly-1318299170.cos.ap-shanghai.myqcloud.com/Images/Blog/Background/202404271928396.webp"
+export const BACKGROUND_IMAGE = "https://butterfly-1318299170.cos.ap-shanghai.myqcloud.com/Images/Blog/Background/6.webp"
 export const COS_HOST = "https://butterfly-1318299170.cos.ap-shanghai.myqcloud.com"
 
 export const ACCOUNT_TITLE = "我的城堡说欢迎光临";
