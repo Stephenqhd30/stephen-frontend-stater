@@ -2,7 +2,7 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import React from 'react';
 import { ProFormText } from '@ant-design/pro-components';
 
-const LoginPage: React.FC = () => (
+const AccountLoginPage: React.FC = () => (
   <>
     {/* 用户注册填写的表单 */}
     <ProFormText
@@ -46,4 +46,4 @@ const LoginPage: React.FC = () => (
   </>
 );
 
-export default LoginPage;
+export default AccountLoginPage;

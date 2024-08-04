@@ -1,13 +1,14 @@
 import { Footer } from '@/components';
 import { LoginFormPage } from '@ant-design/pro-components';
 import { Helmet, history, useModel } from '@umijs/max';
-import { message, Tabs } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Divider, message, Space, Tabs, theme, Typography } from 'antd';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { createStyles } from 'antd-style';
 import { BACKGROUND_IMAGE, STEPHEN_SUBTITLE, STEPHEN_TITLE } from '@/constants';
-import RegisterPage from '@/pages/User/Login/components/RegisterPage';
-import LoginPage from '@/pages/User/Login/components/LoginPage';
-import {userLoginUsingPost, userRegisterUsingPost} from '@/services/stephen-backend/userController';
+import AccountLoginPage from '@/pages/User/Login/components/AccountLoginPage';
+import { userLoginUsingPost } from '@/services/stephen-backend/userController';
+import { AlipayOutlined, TaobaoOutlined, WeiboOutlined } from '@ant-design/icons';
+import PhoneLoginPage from '@/pages/User/Login/components/PhoneLoginPage';
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -34,9 +35,17 @@ const useStyles = createStyles(({ token }) => {
   };
 });
 
+const iconStyles: CSSProperties = {
+  color: 'rgba(0, 0, 0, 0.2)',
+  fontSize: '18px',
+  verticalAlign: 'middle',
+  cursor: 'pote',
+};
+
 
 const Login: React.FC = () => {
-  const [type, setType] = useState<string>('login');
+  const [type, setType] = useState<string>('account');
+  const { token } = theme.useToken();
   const {initialState, setInitialState} = useModel('@@initialState');
   const [redirected, setRedirected] = useState(false); // 控制重定向状态
   const {styles} = useStyles();
@@ -63,23 +72,6 @@ const Login: React.FC = () => {
     }
   };
 
-  // 用户注册
-  const handleRegisterSubmit = async (values: API.UserRegisterRequest) => {
-    try {
-      // 注册
-      await userRegisterUsingPost({
-        ...values
-      });
-      const defaultLoginSuccessMessage = '注册成功！';
-      message.success(defaultLoginSuccessMessage);
-      return;
-    } catch (error: any) {
-      const defaultLoginFailureMessage = `注册失败${error.message}, 请重试！`;
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
-    }
-  };
-
   // useEffect 监听 redirected 状态的变化
   useEffect(() => {
     if (redirected) {
@@ -96,55 +88,111 @@ const Login: React.FC = () => {
       <div
         style={{
           flex: '1 auto',
-          padding: '0'
+          padding: '',
         }}
       >
         {/*用户登录的表单*/}
         <LoginFormPage
-          submitter={{
-            searchConfig: {
-              submitText: type === 'login' ? '登录' : '注册'
-            }
-          }}
           backgroundImageUrl={BACKGROUND_IMAGE}
           containerStyle={{
-            backdropFilter: 'blur(4px)'
+            backdropFilter: 'blur(4px)',
           }}
-          logo={<img alt="logo" src="/logo.svg"/>}
+          logo={<img alt="logo" src="/logo.svg" />}
           title={STEPHEN_TITLE}
           subTitle={STEPHEN_SUBTITLE}
           initialValues={{
-            autoLogin: true
+            autoLogin: true,
           }}
           onFinish={async (values) => {
-            if (type === 'login') {
-              await handleLoginSubmit(values as API.UserLoginRequest);
-            } else if (type === 'register') {
-              await handleRegisterSubmit(values as API.UserRegisterRequest);
-            }
+            await handleLoginSubmit(values as API.UserLoginRequest);
           }}
+          actions={
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+              }}
+            >
+              <Divider plain>
+                <span
+                  style={{
+                    color: token.colorTextPlaceholder,
+                    fontWeight: 'normal',
+                    fontSize: 1,
+                  }}
+                >
+                  其他登录方式
+                </span>
+              </Divider>
+              <Space align="center" size={24}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    height: 40,
+                    width: 40,
+                    border: '1px solid ' + token.colorPrimaryBorder,
+                    borderRadius: '50%',
+                  }}
+                >
+                  <AlipayOutlined style={{ ...iconStyles, color: '#1677FF' }} />
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    height: 40,
+                    width: 40,
+                    border: '1px solid ' + token.colorPrimaryBorder,
+                    borderRadius: '50%',
+                  }}
+                >
+                  <TaobaoOutlined style={{ ...iconStyles, color: '#FF6A10' }} />
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    height: 40,
+                    width: 40,
+                    border: '1px solid ' + token.colorPrimaryBorder,
+                    borderRadius: '50%',
+                  }}
+                >
+                  <WeiboOutlined style={{ ...iconStyles, color: '#1890ff' }} />
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                  }}
+                >
+                  <Typography.Link href={'/user/register'}>去注册</Typography.Link>
+                </div>
+              </Space>
+            </div>
+          }
         >
-          <Tabs
-            centered
-            activeKey={type}
-            onChange={(activeKey) => setType(activeKey)}
-            items={[
-              {label: '账号密码登录', key: 'login'},
-              {label: '注册新用户', key: 'register'}
-            ]}
-          ></Tabs>
+          <Tabs centered activeKey={type} onChange={(activeKey) => setType(activeKey)}>
+            <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
+            <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+          </Tabs>
           {/*用户选择账号密码登录*/}
-          {type === 'login' && <LoginPage/>}
-          {type === 'register' && <RegisterPage/>}
-          {/*给输入框和登录按钮中一个边距*/}
-          <div
-            style={{
-              marginBottom: 36
-            }}
-          ></div>
+          {type === 'account' && <AccountLoginPage />}
+          {type === 'phone' && <PhoneLoginPage />}
         </LoginFormPage>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
