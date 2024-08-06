@@ -15,20 +15,49 @@ export default [
     icon: 'crown',
     access: 'canAdmin',
     routes: [
-      {path: '/admin', redirect: '/admin/user'},
+      { path: '/admin', redirect: '/admin/user' },
       { name: '用户管理', path: '/admin/user', component: './Admin/UserList' },
     ],
   },
   {
     path: '/account',
-    name: "个人页",
-    icon: "user",
+    name: '个人页',
+    icon: 'user',
     routes: [
-      {path: '/account', redirect: '/account/center'},
-      {name: '个人中心', path: '/account/center', component: './Account/Center'},
-      {name: '个人设置', path: '/account/settings', component: './Account/Settings'},
-    ]
-
+      { path: '/account', redirect: '/account/center' },
+      { name: '个人中心', path: '/account/center', component: './Account/Center' },
+      { name: '个人设置', path: '/account/settings', component: './Account/Settings' },
+    ],
+  },
+  {
+    name: 'exception',
+    icon: 'warning',
+    path: '/exception',
+    layout: false,
+    routes: [
+      {
+        path: '/exception',
+        redirect: '/exception/403',
+      },
+      {
+        name: '403',
+        icon: 'smile',
+        path: '/exception/403',
+        component: './Exception/403',
+      },
+      {
+        name: '404',
+        icon: 'smile',
+        path: '/exception/404',
+        component: './Exception/404',
+      },
+      {
+        name: '500',
+        icon: 'smile',
+        path: '/exception/500',
+        component: './Exception/500',
+      },
+    ],
   },
   { path: '*', layout: false, component: './Exception/404' },
 ];

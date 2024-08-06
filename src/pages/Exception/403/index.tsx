@@ -1,7 +1,7 @@
 import { Link } from '@umijs/max';
 import { Button, Result } from 'antd';
 
-export default () => (
+const UnAccessiblePage = () => (
   <Result
     status="403"
     title="403"
@@ -13,3 +13,4 @@ export default () => (
     }
   />
 );
+export default UnAccessiblePage;

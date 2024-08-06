@@ -4,6 +4,7 @@ import { requestConfig } from './requestConfig';
 import React from 'react';
 import Settings from '../config/defaultSettings';
 import { getLoginUserUsingGet } from '@/services/stephen-backend/userController';
+import UnAccessiblePage from '@/pages/Exception/403';
 
 const loginPath = '/user/login';
 
@@ -33,6 +34,8 @@ export async function getInitialState(): Promise<InitialState> {
 export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   return {
     avatarProps: {
+      src: initialState?.currentUser?.userAvatar,
+      title: initialState?.currentUser?.userName,
       render: () => {
         return <AvatarDropdown />;
       },
@@ -68,7 +71,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     },
     menuHeaderRender: undefined,
     // 自定义 403 页面
-    // unAccessible: <div>unAccessible</div>,
+    unAccessible: <UnAccessiblePage />,
     ...Settings,
   };
 };

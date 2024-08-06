@@ -1,5 +1,5 @@
 import '@umijs/max';
-import { Card } from 'antd';
+import {Card, Image} from 'antd';
 import React from 'react';
 import { useModel } from '@@/exports';
 import { ProCard } from '@ant-design/pro-components';
@@ -13,11 +13,14 @@ const UserInfoCard: React.FC<API.User> = () => {
     <>
       <ProCard layout="center" direction="column">
         <ProCard layout={'center'}>
-          <Card hoverable cover={<img alt={currentUser?.userName} src={currentUser?.userAvatar} />}>
+          <Card
+            style={{ maxWidth: 480 }}
+            cover={<Image alt={currentUser?.userName} src={currentUser?.userAvatar} />}
+          >
             <p>
               <IdcardOutlined
                 style={{
-                  marginRight: 8,
+                  marginRight: 16,
                 }}
               />
               {currentUser?.userName}
@@ -25,7 +28,7 @@ const UserInfoCard: React.FC<API.User> = () => {
             <p>
               <SmileOutlined
                 style={{
-                  marginRight: 8,
+                  marginRight: 16,
                 }}
               />
               {currentUser?.userProfile}
@@ -33,7 +36,7 @@ const UserInfoCard: React.FC<API.User> = () => {
             <p>
               <UserOutlined
                 style={{
-                  marginRight: 8,
+                  marginRight: 16,
                 }}
               />
               {currentUser?.userRole === 'admin' ? '管理员' : '普通用户'}

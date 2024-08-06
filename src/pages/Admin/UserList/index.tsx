@@ -1,5 +1,5 @@
 import {PlusOutlined} from '@ant-design/icons';
-import {ActionType, PageContainer, ProColumns, ProTable} from '@ant-design/pro-components';
+import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import {Button, message, Popconfirm, Space, Typography} from 'antd';
 import React, {useRef, useState} from 'react';
@@ -21,11 +21,9 @@ const handleDelete = async (row: API.DeleteRequest) => {
     });
     hide();
     message.success('删除成功');
-    return true;
   } catch (error: any) {
     hide();
     message.error(`删除失败${error.message}, 请重试!`);
-    return false;
   }
 };
 
@@ -156,11 +154,11 @@ const UserList: React.FC = () => {
     },
   ];
   return (
-    <PageContainer>
+    <>
       <ProTable<API.User, API.PageParams>
         headerTitle={'查询表格'}
         actionRef={actionRef}
-        rowKey={"key"}
+        rowKey={'key'}
         search={{
           labelWidth: 120,
         }}
@@ -224,7 +222,7 @@ const UserList: React.FC = () => {
           oldData={currentRow}
         />
       )}
-    </PageContainer>
+    </>
   );
 };
 export default UserList;

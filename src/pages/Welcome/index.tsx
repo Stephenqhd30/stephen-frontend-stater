@@ -1,4 +1,3 @@
-import { PageContainer } from '@ant-design/pro-components';
 import { Card, theme } from 'antd';
 import React from 'react';
 import Settings from '../../../config/defaultSettings';
@@ -86,7 +85,6 @@ const InfoCard: React.FC<{
 const Welcome: React.FC = () => {
   const { token } = theme.useToken();
   return (
-    <PageContainer>
       <Card
         style={{
           borderRadius: 8,
@@ -156,7 +154,6 @@ const Welcome: React.FC = () => {
           </div>
         </div>
       </Card>
-    </PageContainer>
   );
 };
 

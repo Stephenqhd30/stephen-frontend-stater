@@ -56,19 +56,15 @@ const Login: React.FC = () => {
       const res = await userLoginUsingPost({
         ...values,
       });
-      const hide = message.success('登录成功！');
       // 保存已登录的用户信息
       setInitialState({
         ...initialState,
         currentUser: res?.data,
       });
       setRedirected(true); // 设置重定向状态为 true
-      hide()
-      return;
+      message.success('登录成功！');
     } catch (error: any) {
-      const defaultLoginFailureMessage = `登录失败${error.message}, 请重试！`;
-      console.log(error);
-      message.error(defaultLoginFailureMessage);
+      message.error(`登录失败${error.message}, 请重试！`);
     }
   };
 
@@ -83,12 +79,12 @@ const Login: React.FC = () => {
   return (
     <div className={styles.container}>
       <Helmet>
-        <title>{}</title>
+        <title>{STEPHEN_TITLE}</title>
       </Helmet>
       <div
         style={{
           flex: '1 auto',
-          padding: '',
+          padding: '16',
         }}
       >
         {/*用户登录的表单*/}
@@ -120,7 +116,7 @@ const Login: React.FC = () => {
                   style={{
                     color: token.colorTextPlaceholder,
                     fontWeight: 'normal',
-                    fontSize: 1,
+                    fontSize: 14,
                   }}
                 >
                   其他登录方式
