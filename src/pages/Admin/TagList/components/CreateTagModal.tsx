@@ -2,13 +2,13 @@ import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
-import { addUserUsingPost } from '@/services/stephen-backend/userController';
+import {addTagUsingPost} from '@/services/stephen-backend/tagController';
 
 interface CreateProps {
   onCancel: () => void;
-  onSubmit: (values: API.UserAddRequest) => Promise<void>;
+  onSubmit: (values: API.TagAddRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.User>[];
+  columns: ProColumns<API.Tag>[];
 }
 
 /**
@@ -16,10 +16,10 @@ interface CreateProps {
  *
  * @param fields
  */
-const handleAdd = async (fields: API.UserAddRequest) => {
+const handleAdd = async (fields: API.TagAddRequest) => {
   const hide = message.loading('正在添加');
   try {
-    await addUserUsingPost({
+    await addTagUsingPost({
       ...fields,
     });
     hide();
@@ -37,7 +37,7 @@ const handleAdd = async (fields: API.UserAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateModal: React.FC<CreateProps> = (props) => {
+const CreateTagModal: React.FC<CreateProps> = (props) => {
   const { visible, onSubmit, onCancel, columns } = props;
   return (
     <Modal
@@ -51,7 +51,7 @@ const CreateModal: React.FC<CreateProps> = (props) => {
     >
       <ProTable
         columns={columns}
-        onSubmit={async (values: API.UserAddRequest) => {
+        onSubmit={async (values: API.TagAddRequest) => {
           const success = await handleAdd(values);
           if (success) {
             onSubmit?.(values);
@@ -62,4 +62,4 @@ const CreateModal: React.FC<CreateProps> = (props) => {
     </Modal>
   );
 };
-export default CreateModal;
+export default CreateTagModal;

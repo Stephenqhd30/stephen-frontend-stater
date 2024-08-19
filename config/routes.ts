@@ -17,6 +17,7 @@ export default [
     routes: [
       { path: '/admin', redirect: '/admin/user' },
       { name: '用户管理', path: '/admin/user', component: './Admin/UserList' },
+      { name: '标签管理', path: '/admin/tag', component: './Admin/TagList' },
     ],
   },
   {

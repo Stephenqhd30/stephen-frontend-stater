@@ -35,6 +35,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageTag_ = {
+    code?: number;
+    data?: PageTag_;
+    message?: string;
+  };
+
+  type BaseResponsePageTagVO_ = {
+    code?: number;
+    data?: PageTagVO_;
+    message?: string;
+  };
+
   type BaseResponsePageUser_ = {
     code?: number;
     data?: PageUser_;
@@ -56,6 +68,12 @@ declare namespace API {
   type BaseResponseString_ = {
     code?: number;
     data?: string;
+    message?: string;
+  };
+
+  type BaseResponseTagVO_ = {
+    code?: number;
+    data?: TagVO;
     message?: string;
   };
 
@@ -91,6 +109,11 @@ declare namespace API {
     id?: number;
   };
 
+  type getTagVOByIdUsingGETParams = {
+    /** id */
+    id?: number;
+  };
+
   type getUserByIdUsingGETParams = {
     /** id */
     id?: number;
@@ -107,6 +130,7 @@ declare namespace API {
     updateTime?: string;
     userAvatar?: string;
     userEmail?: string;
+    userGender?: number;
     userName?: string;
     userPhone?: string;
     userProfile?: string;
@@ -139,6 +163,32 @@ declare namespace API {
     orders?: OrderItem[];
     pages?: number;
     records?: PostVO[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageTag_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: Tag[];
+    searchCount?: boolean;
+    size?: number;
+    total?: number;
+  };
+
+  type PageTagVO_ = {
+    countId?: string;
+    current?: number;
+    maxLimit?: number;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: number;
+    records?: TagVO[];
     searchCount?: boolean;
     size?: number;
     total?: number;
@@ -251,6 +301,58 @@ declare namespace API {
     userId?: number;
   };
 
+  type Tag = {
+    createTime?: string;
+    id?: number;
+    isDelete?: number;
+    isParent?: number;
+    parentId?: number;
+    tagName?: string;
+    updateTime?: string;
+    userId?: number;
+  };
+
+  type TagAddRequest = {
+    isParent?: number;
+    parentId?: number;
+    tagName?: string;
+  };
+
+  type TagEditRequest = {
+    id?: number;
+    tagName?: string;
+  };
+
+  type TagQueryRequest = {
+    current?: number;
+    id?: number;
+    isParent?: number;
+    pageSize?: number;
+    parentId?: number;
+    sortField?: string;
+    sortOrder?: string;
+    tagName?: string;
+    userId?: number;
+  };
+
+  type TagUpdateRequest = {
+    id?: number;
+    isParent?: number;
+    parentId?: number;
+    tagName?: string;
+  };
+
+  type TagVO = {
+    createTime?: string;
+    id?: number;
+    isParent?: number;
+    parentId?: number;
+    tagName?: string;
+    updateTime?: string;
+    userId?: number;
+    userVO?: UserVO;
+  };
+
   type uploadFileUsingPOSTParams = {
     biz?: string;
   };
@@ -265,6 +367,7 @@ declare namespace API {
     userAccount?: string;
     userAvatar?: string;
     userEmail?: string;
+    userGender?: number;
     userName?: string;
     userPassword?: string;
     userPhone?: string;
@@ -276,10 +379,20 @@ declare namespace API {
     userAccount?: string;
     userAvatar?: string;
     userEmail?: string;
+    userGender?: number;
     userName?: string;
     userPhone?: string;
     userProfile?: string;
     userRole?: string;
+  };
+
+  type UserEditRequest = {
+    userAvatar?: string;
+    userEmail?: string;
+    userGender?: number;
+    userName?: string;
+    userPhone?: string;
+    userProfile?: string;
   };
 
   type userLoginByWxOpenUsingGETParams = {
@@ -301,6 +414,7 @@ declare namespace API {
     sortOrder?: string;
     unionId?: string;
     userEmail?: string;
+    userGender?: number;
     userName?: string;
     userPhone?: string;
     userProfile?: string;
@@ -313,18 +427,11 @@ declare namespace API {
     userPassword?: string;
   };
 
-  type UserUpdateMyRequest = {
-    userAvatar?: string;
-    userEmail?: string;
-    userName?: string;
-    userPhone?: string;
-    userProfile?: string;
-  };
-
   type UserUpdateRequest = {
     id?: number;
     userAvatar?: string;
     userEmail?: string;
+    userGender?: number;
     userName?: string;
     userPhone?: string;
     userProfile?: string;
@@ -334,8 +441,14 @@ declare namespace API {
   type UserVO = {
     createTime?: string;
     id?: number;
+    mpOpenId?: string;
+    unionId?: string;
+    updateTime?: string;
     userAvatar?: string;
+    userEmail?: string;
+    userGender?: number;
     userName?: string;
+    userPhone?: string;
     userProfile?: string;
     userRole?: string;
   };

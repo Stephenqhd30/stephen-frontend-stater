@@ -167,7 +167,7 @@ export async function updateUserUsingPost(
 
 /** updateMyUser POST /api/user/update/my */
 export async function updateMyUserUsingPost(
-  body: API.UserUpdateMyRequest,
+  body: API.UserEditRequest,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseBoolean_>('/api/user/update/my', {
