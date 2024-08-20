@@ -51,6 +51,7 @@ const UserList: React.FC = () => {
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
+      copyable: true,
     },
     {
       title: '账号',

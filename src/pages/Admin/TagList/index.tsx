@@ -7,7 +7,7 @@ import UpdateTagModal from './components/UpdateTagModal';
 import CreateTagModal from '@/pages/Admin/TagList/components/CreateTagModal';
 import {
   deleteTagUsingPost,
-  listTagByPageUsingPost,
+  listTagVoByPageUsingPost,
 } from '@/services/stephen-backend/tagController';
 
 /**
@@ -41,22 +41,31 @@ const TagList: React.FC = () => {
   const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
-  const [currentRow, setCurrentRow] = useState<API.Tag>();
+  const [currentRow, setCurrentRow] = useState<API.TagVO>();
 
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.Tag>[] = [
+  const columns: ProColumns<API.TagVO>[] = [
     {
       title: 'id',
       dataIndex: 'id',
       valueType: 'text',
       hideInForm: true,
+      copyable: true,
     },
     {
-      title: 'parentId',
-      dataIndex: 'id',
+      title: '父标签id',
+      dataIndex: 'parentId',
       valueType: 'text',
+      copyable: true,
+    },
+    {
+      title: '创建人',
+      dataIndex: 'userId',
+      valueType: 'text',
+      render: (_, record) => <div>{record.userVO?.userName}</div>,
+      hideInSearch: true,
       hideInForm: true,
     },
     {
@@ -67,6 +76,7 @@ const TagList: React.FC = () => {
     {
       title: '是否为父标签',
       dataIndex: 'isParent',
+      valueType: 'text',
       valueEnum: {
         0: {
           text: '不是父标签',
@@ -135,7 +145,7 @@ const TagList: React.FC = () => {
   ];
   return (
     <>
-      <ProTable<API.Tag, API.PageParams>
+      <ProTable<API.TagVO, API.PageParams>
         headerTitle={'查询表格'}
         actionRef={actionRef}
         rowKey={'key'}
@@ -156,7 +166,7 @@ const TagList: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listTagByPageUsingPost({
+          const { data, code } = await listTagVoByPageUsingPost({
             ...params,
             ...filter,
             sortField,

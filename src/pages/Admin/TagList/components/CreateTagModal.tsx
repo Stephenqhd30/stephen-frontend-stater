@@ -8,7 +8,7 @@ interface CreateProps {
   onCancel: () => void;
   onSubmit: (values: API.TagAddRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.Tag>[];
+  columns: ProColumns<API.TagVO>[];
 }
 
 /**
@@ -42,7 +42,7 @@ const CreateTagModal: React.FC<CreateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'创建标签'}
       open={visible}
       footer={null}
       onCancel={() => {

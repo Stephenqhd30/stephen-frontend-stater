@@ -3,13 +3,14 @@ import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
 import { updateTagUsingPost } from '@/services/stephen-backend/tagController';
+import { TeamStatusEnum } from '@/constants/TeamStatusEnum';
 
 interface UpdateProps {
-  oldData?: API.Tag;
+  oldData?: API.TagVO;
   onCancel: () => void;
   onSubmit: (values: API.TagUpdateRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.Tag>[];
+  columns: ProColumns<API.TagVO>[];
 }
 
 /**
@@ -17,7 +18,7 @@ interface UpdateProps {
  *
  * @param fields
  */
-const handleUpdate = async (fields: API.UserUpdateRequest) => {
+const handleUpdate = async (fields: API.TagUpdateRequest) => {
   const hide = message.loading('正在更新');
   try {
     await updateTagUsingPost(fields);
@@ -39,7 +40,7 @@ const UpdateTagModal: React.FC<UpdateProps> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'更新标签信息'}
       open={visible}
       footer={null}
       onCancel={() => {
@@ -49,7 +50,10 @@ const UpdateTagModal: React.FC<UpdateProps> = (props) => {
       <ProTable
         type={'form'}
         form={{
-          initialValues: oldData,
+          initialValues: {
+            ...oldData,
+            isParent: oldData.isParent === TeamStatusEnum.NOT_IS_PARENT ? '是父标签' : '不是父标签',
+          },
         }}
         columns={columns}
         onSubmit={async (values: API.TagUpdateRequest) => {
