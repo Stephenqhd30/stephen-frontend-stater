@@ -1,13 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Popconfirm, Space, Typography } from 'antd';
+import { Button, message, Popconfirm, Space, Tag, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
 import UpdateUserModal from './components/UpdateUserModal';
 import {
-  deleteUserUsingPost, listUserByPageUsingPost
+  deleteUserUsingPost,
+  listUserByPageUsingPost,
 } from '@/services/stephen-backend/userController';
 import CreateUserModal from '@/pages/Admin/UserList/components/CreateUserModal';
+import { userRoleList, userRoleTagColor } from '@/enums/UserRoleEnum';
 
 /**
  * 删除节点
@@ -98,6 +100,14 @@ const UserList: React.FC = () => {
           text: '用户',
         },
       },
+      render: (_, record) => (
+        <Tag
+          bordered={false}
+          color={record.userRole === 'admin' ? userRoleTagColor[0] : userRoleTagColor[1]}
+        >
+          {userRoleList.find((item) => item.value === record.userRole)?.label}
+        </Tag>
+      ),
     },
     {
       title: '创建时间',
@@ -126,7 +136,7 @@ const UserList: React.FC = () => {
             onClick={() => {
               setUpdateModalVisible(true);
               setCurrentRow(record);
-              actionRef.current?.reload()
+              actionRef.current?.reload();
             }}
           >
             修改

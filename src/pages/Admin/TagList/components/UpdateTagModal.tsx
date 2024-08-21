@@ -3,7 +3,7 @@ import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
 import { updateTagUsingPost } from '@/services/stephen-backend/tagController';
-import { TeamStatusEnum } from '@/constants/TeamStatusEnum';
+import { TagStatusEnum } from '@/enums/TagStatusEnum';
 
 interface UpdateProps {
   oldData?: API.TagVO;
@@ -52,7 +52,7 @@ const UpdateTagModal: React.FC<UpdateProps> = (props) => {
         form={{
           initialValues: {
             ...oldData,
-            isParent: oldData.isParent === TeamStatusEnum.NOT_IS_PARENT ? '是父标签' : '不是父标签',
+            isParent: oldData.isParent === TagStatusEnum.NOT_IS_PARENT ? '是父标签' : '不是父标签',
           },
         }}
         columns={columns}
