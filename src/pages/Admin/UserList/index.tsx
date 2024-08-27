@@ -8,8 +8,8 @@ import {
   deleteUserUsingPost,
   listUserByPageUsingPost,
 } from '@/services/stephen-backend/userController';
-import { userRoleList, userRoleTagColor } from '@/enums/UserRoleEnum';
 import CreateUserDrawer from '@/pages/Admin/UserList/components/CreateUserDrawer';
+import {userRoleEnum} from '@/enums/UserRoleEnum';
 
 /**
  * 删除节点
@@ -99,14 +99,11 @@ const UserList: React.FC = () => {
           text: '用户',
         },
       },
-      render: (_, record) => (
-        <Tag
-          bordered={false}
-          color={record.userRole === 'admin' ? userRoleTagColor[0] : userRoleTagColor[1]}
-        >
-          {userRoleList.find((item) => item.value === record.userRole)?.label}
-        </Tag>
-      ),
+      render: (_, record) => {
+        // @ts-ignore
+        const role = userRoleEnum[record.userRole];
+        return <Tag color={role.color}>{role.text}</Tag>;
+      },
     },
     {
       title: '创建时间',

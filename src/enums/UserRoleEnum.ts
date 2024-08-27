@@ -4,19 +4,21 @@ export enum UserRoleEnum {
   BAN = 'ban',
 }
 
-export const userRoleList = [
-  {
-    label: '普通用户',
-    value: 'user',
+export const userRoleEnum = {
+  admin: {
+    text: '管理员',
+    value: UserRoleEnum.ADMIN,
+    color: 'processing',
   },
-  {
-    label: '管理员',
-    value: 'admin',
+  user: {
+    text: '普通用户',
+    value: UserRoleEnum.USER,
+    color: 'success',
   },
-  {
-    label: '被禁用',
-    value: 'ban',
-  },
-];
+  ban: {
+    text: '封禁',
+    value: UserRoleEnum.BAN,
+    color: 'error',
+  }
 
-export const userRoleTagColor = ['processing', 'success', 'error'];
+}
