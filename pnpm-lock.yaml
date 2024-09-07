@@ -17,10 +17,16 @@ importers:
       '@ant-design/pro-layout':
         specifier: ^7.19.12
         version: 7.19.12(antd@5.13.2(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      '@bytemd/plugin-gemoji':
+        specifier: ^1.21.0
+        version: 1.21.0(bytemd@1.21.0)
       '@bytemd/plugin-gfm':
         specifier: ^1.21.0
         version: 1.21.0(bytemd@1.21.0)
       '@bytemd/plugin-highlight':
+        specifier: ^1.21.0
+        version: 1.21.0(bytemd@1.21.0)
+      '@bytemd/plugin-medium-zoom':
         specifier: ^1.21.0
         version: 1.21.0(bytemd@1.21.0)
       '@bytemd/react':
@@ -35,9 +41,15 @@ importers:
       antd-style:
         specifier: ^3.6.1
         version: 3.6.1(@types/react@18.2.48)(antd@5.13.2(date-fns@2.30.0)(moment@2.30.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      bytemd:
+        specifier: ^1.21.0
+        version: 1.21.0
       classnames:
         specifier: ^2.5.1
         version: 2.5.1
+      highlight.js:
+        specifier: ^11.10.0
+        version: 11.10.0
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1165,6 +1177,11 @@ packages:
   '@bloomberg/record-tuple-polyfill@0.0.4':
     resolution: {integrity: sha512-h0OYmPR3A5Dfbetra/GzxBAzQk8sH7LhRkRUTdagX6nrtlUgJGYCTv4bBK33jsTQw9HDd8PE2x1Ma+iRKEDUsw==}
 
+  '@bytemd/plugin-gemoji@1.21.0':
+    resolution: {integrity: sha512-/u90E0xHM0SmK5nt+c82UYtgm+ECq16ofp+bi/KZnzoq2vzqscflxxMRz59u2t3UejFpCMaqdIcnfzn0/eYvsA==}
+    peerDependencies:
+      bytemd: ^1.5.0
+
   '@bytemd/plugin-gfm@1.21.0':
     resolution: {integrity: sha512-ZlrLa+Nl80gUDeC1hTnyRDfgJU3DGQVjQvX9rIIitUCler+KsAiagEnng6S/W2SZNpv+f8eWpVNL8KA8X3d7Tg==}
     peerDependencies:
@@ -1172,6 +1189,11 @@ packages:
 
   '@bytemd/plugin-highlight@1.21.0':
     resolution: {integrity: sha512-JM9rwzj9pFBXVwxmD9mgGIQPO4cTFVHvDhffS93IMK+tqvo0Vw76zDIqJWT3f421j8iNxffGsVQQs6389u3Z9A==}
+    peerDependencies:
+      bytemd: ^1.5.0
+
+  '@bytemd/plugin-medium-zoom@1.21.0':
+    resolution: {integrity: sha512-7x8iuw3eKfYyjDIcDa5EIa399db6SEk9Y2ntaZoJvJAf02ASXOZHwBht9PYredoPEjXgZS6awJ5Adr/fM/QJ4A==}
     peerDependencies:
       bytemd: ^1.5.0
 
@@ -4801,6 +4823,9 @@ packages:
     resolution: {integrity: sha512-f9m+BEN5jkg6a0fZjleidjN51VE1X+mPFQ2DJ0uv1V39oCLCbsGe6yjbBnp7eK7z/+GAon99a3nHuqbuuthyPg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
 
+  gemoji@7.1.0:
+    resolution: {integrity: sha512-wI0YWDIfQraQMDs0yXAVQiVBZeMm/rIYssf8LZlMDdssKF19YqJKOHkv4zvwtVQTBJ0LNmErv1S+DqlVUudz8g==}
+
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
@@ -6153,6 +6178,9 @@ packages:
   media-typer@0.3.0:
     resolution: {integrity: sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ==}
     engines: {node: '>= 0.6'}
+
+  medium-zoom@1.1.0:
+    resolution: {integrity: sha512-ewyDsp7k4InCUp3jRmwHBRFGyjBimKps/AJLjRSox+2q/2H4p/PNpQf+pwONWlJiOudkBXtbdmVbFjqyybfTmQ==}
 
   mem-fs-editor@9.7.0:
     resolution: {integrity: sha512-ReB3YD24GNykmu4WeUL/FDIQtkoyGB6zfJv60yfCo3QjKeimNcTqv2FT83bP0ccs6uu+sm5zyoBlspAzigmsdg==}
@@ -8386,6 +8414,9 @@ packages:
   relateurl@0.2.7:
     resolution: {integrity: sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==}
     engines: {node: '>= 0.10'}
+
+  remark-gemoji@7.0.1:
+    resolution: {integrity: sha512-vhjuntkvYxRgM4Um6L5N7B3SrNu3eX6jNqpqAywpAvSYPbmDPNL3I5E6zWm+KPCyh3OpKRc5OPnz7SifggzePw==}
 
   remark-gfm@3.0.1:
     resolution: {integrity: sha512-lEFDoi2PICJyNrACFOfDD3JlLkuSbOa5Wd8EPt06HUdptv8Gn0bxYTdbU/XXQ3swAPkEaGxxPN9cbnMHvVu1Ig==}
@@ -11990,6 +12021,11 @@ snapshots:
 
   '@bloomberg/record-tuple-polyfill@0.0.4': {}
 
+  '@bytemd/plugin-gemoji@1.21.0(bytemd@1.21.0)':
+    dependencies:
+      bytemd: 1.21.0
+      remark-gemoji: 7.0.1
+
   '@bytemd/plugin-gfm@1.21.0(bytemd@1.21.0)':
     dependencies:
       bytemd: 1.21.0
@@ -12001,6 +12037,11 @@ snapshots:
     dependencies:
       bytemd: 1.21.0
       highlight.js: 11.10.0
+
+  '@bytemd/plugin-medium-zoom@1.21.0(bytemd@1.21.0)':
+    dependencies:
+      bytemd: 1.21.0
+      medium-zoom: 1.1.0
 
   '@bytemd/react@1.21.0(react@18.2.0)':
     dependencies:
@@ -17230,6 +17271,8 @@ snapshots:
       strip-ansi: 6.0.1
       wide-align: 1.1.5
 
+  gemoji@7.1.0: {}
+
   gensync@1.0.0-beta.2: {}
 
   get-caller-file@2.0.5: {}
@@ -18790,6 +18833,8 @@ snapshots:
   mdn-data@2.0.14: {}
 
   media-typer@0.3.0: {}
+
+  medium-zoom@1.1.0: {}
 
   mem-fs-editor@9.7.0(mem-fs@2.3.0):
     dependencies:
@@ -21674,6 +21719,13 @@ snapshots:
       unified: 10.1.2
 
   relateurl@0.2.7: {}
+
+  remark-gemoji@7.0.1:
+    dependencies:
+      '@types/mdast': 3.0.15
+      gemoji: 7.1.0
+      unified: 10.1.2
+      unist-util-visit: 4.1.2
 
   remark-gfm@3.0.1:
     dependencies:
