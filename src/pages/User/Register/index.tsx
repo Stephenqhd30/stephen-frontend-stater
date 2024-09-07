@@ -81,7 +81,7 @@ const Login: React.FC = () => {
           containerStyle={{
             backdropFilter: 'blur(4px)',
           }}
-          logo={<img alt="logo" src="/logo.svg" />}
+          logo={<img alt="logo" src="/logo.png" />}
           title={STEPHEN_TITLE}
           subTitle={STEPHEN_SUBTITLE}
           initialValues={{
