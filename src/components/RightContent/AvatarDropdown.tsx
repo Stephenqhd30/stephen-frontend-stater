@@ -40,7 +40,9 @@ export const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
     }
   };
 
-
+  /**
+   * 点击菜单栏
+   */
   const onMenuClick = useCallback(
     (event: MenuInfo) => {
       const { key } = event;

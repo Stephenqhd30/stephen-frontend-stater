@@ -33,7 +33,7 @@ const useStyles = createStyles(({ token }) => {
   };
 });
 
-const Login: React.FC = () => {
+const Register: React.FC = () => {
   const [redirected, setRedirected] = useState(false); // 控制重定向状态
   const { styles } = useStyles();
 
@@ -99,4 +99,4 @@ const Login: React.FC = () => {
     </div>
   );
 };
-export default Login;
+export default Register;
