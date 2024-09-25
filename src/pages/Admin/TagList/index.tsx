@@ -1,14 +1,15 @@
 import { PlusOutlined } from '@ant-design/icons';
 import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Button, message, Popconfirm, Space, Typography } from 'antd';
+import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
-import UpdateTagDrawer from './components/UpdateTagDrawer';
-import CreateTagDrawer from '@/pages/Admin/TagList/components/CreateTagDrawer';
+import UpdateTagModal from './components/UpdateTagModal';
+import CreateTagModal from '@/pages/Admin/TagList/components/CreateTagModal';
 import {
   deleteTagUsingPost,
-  listTagVoByPageUsingPost,
+  listTagByPageUsingPost,
 } from '@/services/stephen-backend/tagController';
+import { TagStatusEnum, tagStatusEnum } from '@/enums/TagStatusEnum';
 
 /**
  * 删除节点
@@ -35,18 +36,18 @@ const handleDelete = async (row: API.DeleteRequest) => {
  * @constructor
  */
 const TagList: React.FC = () => {
-  // 新建窗口的Drawer框
-  const [createDrawerVisible, setCreateDrawerVisible] = useState<boolean>(false);
-  // 更新窗口的Drawer框
-  const [updateDrawerVisible, setUpdateDrawerVisible] = useState<boolean>(false);
+  // 新建窗口的Modal框
+  const [createModalVisible, setCreateModalVisible] = useState<boolean>(false);
+  // 更新窗口的Modal框
+  const [updateModalVisible, setUpdateModalVisible] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   // 当前用户的所点击的数据
-  const [currentRow, setCurrentRow] = useState<API.TagVO>();
+  const [currentRow, setCurrentRow] = useState<API.Tag>();
 
   /**
    * 表格列数据
    */
-  const columns: ProColumns<API.TagVO>[] = [
+  const columns: ProColumns<API.Tag>[] = [
     {
       title: 'id',
       dataIndex: 'id',
@@ -59,11 +60,9 @@ const TagList: React.FC = () => {
       valueType: 'text',
     },
     {
-      title: '创建人',
+      title: '创建人id',
       dataIndex: 'userId',
       valueType: 'text',
-      render: (_, record) => <div>{record.userVO?.userName}</div>,
-      hideInSearch: true,
       hideInForm: true,
     },
     {
@@ -74,14 +73,18 @@ const TagList: React.FC = () => {
     {
       title: '是否为父标签',
       dataIndex: 'isParent',
-      valueType: 'text',
-      valueEnum: {
-        0: {
-          text: '不是父标签',
-        },
-        1: {
-          text: '是父标签',
-        },
+      valueEnum: tagStatusEnum,
+      renderFormItem: () => {
+        return (
+          <Select>
+            <Select.Option value={TagStatusEnum.IS_PARENT}>
+              {tagStatusEnum[TagStatusEnum.IS_PARENT].text}
+            </Select.Option>
+            <Select.Option value={TagStatusEnum.NOT_IS_PARENT}>
+              {tagStatusEnum[TagStatusEnum.NOT_IS_PARENT].text}
+            </Select.Option>
+          </Select>
+        );
       },
     },
     {
@@ -109,7 +112,7 @@ const TagList: React.FC = () => {
           <Typography.Link
             key="update"
             onClick={() => {
-              setUpdateDrawerVisible(true);
+              setUpdateModalVisible(true);
               setCurrentRow(record);
               actionRef.current?.reload();
             }}
@@ -155,7 +158,7 @@ const TagList: React.FC = () => {
             type="primary"
             key="primary"
             onClick={() => {
-              setCreateDrawerVisible(true);
+              setCreateModalVisible(true);
             }}
           >
             <PlusOutlined /> 新建
@@ -164,7 +167,7 @@ const TagList: React.FC = () => {
         request={async (params, sort, filter) => {
           const sortField = Object.keys(sort)?.[0];
           const sortOrder = sort?.[sortField] ?? undefined;
-          const { data, code } = await listTagVoByPageUsingPost({
+          const { data, code } = await listTagByPageUsingPost({
             ...params,
             ...filter,
             sortField,
@@ -180,32 +183,32 @@ const TagList: React.FC = () => {
         columns={columns}
       />
 
-      {/*新建表单的Drawer框*/}
-      {createDrawerVisible && (
-        <CreateTagDrawer
+      {/*新建表单的Modal框*/}
+      {createModalVisible && (
+        <CreateTagModal
           onCancel={() => {
-            setCreateDrawerVisible(false);
+            setCreateModalVisible(false);
           }}
           onSubmit={async () => {
-            setCreateDrawerVisible(false);
+            setCreateModalVisible(false);
             actionRef.current?.reload();
           }}
-          visible={createDrawerVisible}
+          visible={createModalVisible}
           columns={columns}
         />
       )}
-      {/*更新表单的Drawer框*/}
-      {updateDrawerVisible && (
-        <UpdateTagDrawer
+      {/*更新表单的Modal框*/}
+      {updateModalVisible && (
+        <UpdateTagModal
           onCancel={() => {
-            setUpdateDrawerVisible(false);
+            setUpdateModalVisible(false);
           }}
           onSubmit={async () => {
-            setUpdateDrawerVisible(false);
+            setUpdateModalVisible(false);
             setCurrentRow(undefined);
             actionRef.current?.reload();
           }}
-          visible={updateDrawerVisible}
+          visible={updateModalVisible}
           columns={columns}
           oldData={currentRow}
         />

@@ -11,6 +11,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListTagDTO_ = {
+    code?: number;
+    data?: TagDTO[];
+    message?: string;
+  };
+
   type BaseResponseLoginUserVO_ = {
     code?: number;
     data?: LoginUserVO;
@@ -126,6 +132,7 @@ declare namespace API {
 
   type LoginUserVO = {
     createTime?: string;
+    editTime?: string;
     id?: number;
     updateTime?: string;
     userAvatar?: string;
@@ -318,6 +325,18 @@ declare namespace API {
     tagName?: string;
   };
 
+  type TagChildren = {
+    id?: number;
+    tagChildrenList?: TagChildren[];
+    tagName?: string;
+  };
+
+  type TagDTO = {
+    id?: number;
+    tagChildrenList?: TagChildren[];
+    tagName?: string;
+  };
+
   type TagEditRequest = {
     id?: number;
     tagName?: string;
@@ -359,6 +378,7 @@ declare namespace API {
 
   type User = {
     createTime?: string;
+    editTime?: string;
     id?: number;
     isDelete?: number;
     mpOpenId?: string;
@@ -440,6 +460,7 @@ declare namespace API {
 
   type UserVO = {
     createTime?: string;
+    editTime?: string;
     id?: number;
     mpOpenId?: string;
     unionId?: string;

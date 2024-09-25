@@ -1,6 +1,6 @@
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Drawer, message } from 'antd';
+import { message, Modal } from 'antd';
 import React from 'react';
 import { addUserUsingPost } from '@/services/stephen-backend/userController';
 
@@ -37,15 +37,10 @@ const handleAdd = async (fields: API.UserAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateUserDrawer: React.FC<CreateProps> = (props) => {
+const CreateUserModal: React.FC<CreateProps> = (props) => {
   const { visible, onSubmit, onCancel, columns } = props;
   return (
-    <Drawer
-      destroyOnClose
-      title={"新建用户"}
-      onClose={() => onCancel?.()}
-      open={visible}
-    >
+    <Modal destroyOnClose title={'新建用户'} onCancel={() => onCancel?.()} open={visible} footer>
       <ProTable
         columns={columns}
         onSubmit={async (values: API.UserAddRequest) => {
@@ -56,7 +51,7 @@ const CreateUserDrawer: React.FC<CreateProps> = (props) => {
         }}
         type={'form'}
       />
-    </Drawer>
+    </Modal>
   );
 };
-export default CreateUserDrawer;
+export default CreateUserModal;

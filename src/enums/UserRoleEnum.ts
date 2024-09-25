@@ -1,9 +1,15 @@
+/**
+ * 用户角色枚举
+ */
 export enum UserRoleEnum {
   ADMIN = 'admin',
   USER = 'user',
   BAN = 'ban',
 }
 
+/**
+ * 用户角色枚举
+ */
 export const userRoleEnum = {
   admin: {
     text: '管理员',
@@ -20,5 +26,4 @@ export const userRoleEnum = {
     value: UserRoleEnum.BAN,
     color: 'error',
   }
-
 }

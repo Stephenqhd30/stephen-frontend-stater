@@ -1,16 +1,15 @@
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Drawer, message } from 'antd';
+import { message, Modal } from 'antd';
 import React from 'react';
-import { updateTagUsingPost } from '@/services/stephen-backend/tagController';
-import { TagStatusEnum } from '@/enums/TagStatusEnum';
+import { updateUserUsingPost } from '@/services/stephen-backend/userController';
 
 interface UpdateProps {
-  oldData?: API.TagVO;
+  oldData?: API.User;
   onCancel: () => void;
-  onSubmit: (values: API.TagUpdateRequest) => Promise<void>;
+  onSubmit: (values: API.UserUpdateRequest) => Promise<void>;
   visible: boolean;
-  columns: ProColumns<API.TagVO>[];
+  columns: ProColumns<API.User>[];
 }
 
 /**
@@ -18,10 +17,10 @@ interface UpdateProps {
  *
  * @param fields
  */
-const handleUpdate = async (fields: API.TagUpdateRequest) => {
+const handleUpdate = async (fields: API.UserUpdateRequest) => {
   const hide = message.loading('正在更新');
   try {
-    await updateTagUsingPost(fields);
+    await updateUserUsingPost(fields);
     hide();
     message.success('更新成功');
     return true;
@@ -31,24 +30,21 @@ const handleUpdate = async (fields: API.TagUpdateRequest) => {
     return false;
   }
 };
-const UpdateTagDrawer: React.FC<UpdateProps> = (props) => {
+const UpdateUserModal: React.FC<UpdateProps> = (props) => {
   const { oldData, visible, onSubmit, onCancel, columns } = props;
   if (!oldData) {
     return <></>;
   }
 
   return (
-    <Drawer destroyOnClose title={'更新标签信息'} open={visible} onClose={() => onCancel?.()}>
+    <Modal destroyOnClose title={'更新用户'} onCancel={() => onCancel?.()} open={visible} footer>
       <ProTable
         type={'form'}
         form={{
-          initialValues: {
-            ...oldData,
-            isParent: oldData.isParent === TagStatusEnum.NOT_IS_PARENT ? '是父标签' : '不是父标签',
-          },
+          initialValues: oldData,
         }}
         columns={columns}
-        onSubmit={async (values: API.TagUpdateRequest) => {
+        onSubmit={async (values: API.UserUpdateRequest) => {
           const success = await handleUpdate({
             ...values,
             id: oldData?.id,
@@ -58,7 +54,7 @@ const UpdateTagDrawer: React.FC<UpdateProps> = (props) => {
           }
         }}
       />
-    </Drawer>
+    </Modal>
   );
 };
-export default UpdateTagDrawer;
+export default UpdateUserModal;

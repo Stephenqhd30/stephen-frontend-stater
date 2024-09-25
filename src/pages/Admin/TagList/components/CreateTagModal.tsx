@@ -1,6 +1,6 @@
 import { ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
-import { Drawer, message } from 'antd';
+import { message, Modal } from 'antd';
 import React from 'react';
 import { addTagUsingPost } from '@/services/stephen-backend/tagController';
 
@@ -37,15 +37,10 @@ const handleAdd = async (fields: API.TagAddRequest) => {
  * @param props
  * @constructor
  */
-const CreateTagDrawer: React.FC<CreateProps> = (props) => {
+const CreateTagModal: React.FC<CreateProps> = (props) => {
   const { visible, onSubmit, onCancel, columns } = props;
   return (
-    <Drawer
-      destroyOnClose
-      title={"创建标签"}
-      onClose={() => onCancel?.()}
-      open={visible}
-    >
+    <Modal destroyOnClose title={'创建标签'} onCancel={() => onCancel?.()} open={visible} footer>
       <ProTable
         columns={columns}
         onSubmit={async (values: API.TagAddRequest) => {
@@ -56,7 +51,7 @@ const CreateTagDrawer: React.FC<CreateProps> = (props) => {
         }}
         type={'form'}
       />
-    </Drawer>
+    </Modal>
   );
 };
-export default CreateTagDrawer;
+export default CreateTagModal;
