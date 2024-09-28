@@ -3,13 +3,13 @@ import { ActionType, ProColumns, ProTable } from '@ant-design/pro-components';
 import '@umijs/max';
 import { Button, message, Popconfirm, Select, Space, Typography } from 'antd';
 import React, { useRef, useState } from 'react';
-import UpdateTagModal from './components/UpdateTagModal';
-import CreateTagModal from '@/pages/Admin/TagList/components/CreateTagModal';
+
 import {
   deleteTagUsingPost,
   listTagByPageUsingPost,
 } from '@/services/stephen-backend/tagController';
 import { TagStatusEnum, tagStatusEnum } from '@/enums/TagStatusEnum';
+import { CreateTagModal, UpdateTagModal } from '@/pages/Admin/TagList/components';
 
 /**
  * 删除节点

@@ -19,14 +19,15 @@ interface CreateProps {
 const handleAdd = async (fields: API.UserAddRequest) => {
   const hide = message.loading('正在添加');
   try {
-    await addUserUsingPost({
+    const res = await addUserUsingPost({
       ...fields,
     });
-    hide();
-    message.success('添加成功');
-    return true;
+    if (res.code === 0 && res.data) {
+      hide();
+      message.success('添加成功');
+      return true;
+    }
   } catch (error: any) {
-    hide();
     message.error(`添加失败${error.message}, 请重试!`);
     return false;
   }

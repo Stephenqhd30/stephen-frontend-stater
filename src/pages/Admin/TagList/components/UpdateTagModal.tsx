@@ -3,7 +3,6 @@ import '@umijs/max';
 import { message, Modal } from 'antd';
 import React from 'react';
 import { updateTagUsingPost } from '@/services/stephen-backend/tagController';
-import { TagStatusEnum } from '@/enums/TagStatusEnum';
 
 interface UpdateProps {
   oldData?: API.TagVO;
@@ -21,12 +20,13 @@ interface UpdateProps {
 const handleUpdate = async (fields: API.TagUpdateRequest) => {
   const hide = message.loading('正在更新');
   try {
-    await updateTagUsingPost(fields);
-    hide();
-    message.success('更新成功');
-    return true;
+    const res = await updateTagUsingPost(fields);
+    if (res.code === 0 && res.data) {
+      hide();
+      message.success('更新成功');
+      return true;
+    }
   } catch (error: any) {
-    hide();
     message.error(`更新失败${error.message}, 请重试!`);
     return false;
   }
