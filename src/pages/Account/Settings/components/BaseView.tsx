@@ -24,15 +24,16 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
    */
   const handleUpdate = async (values: API.UserUpdateRequest) => {
     const hide = message.loading('正在更新');
-    console.log(values);
     try {
-      await updateMyUserUsingPost({
+      const res = await updateMyUserUsingPost({
         ...values,
         userAvatar: userAvatar,
       });
-      hide();
-      message.success('更新成功');
-      return true;
+      if (res.code === 0 && res.data) {
+        hide();
+        message.success('更新成功');
+        return true;
+      }
     } catch (error: any) {
       hide();
       message.error(`更新失败${error.message}, 请重试!`);
@@ -59,8 +60,10 @@ const BaseView: React.FC<BaseViewProps> = (props) => {
           },
           file,
         );
-        onSuccess(res.data);
-        setUserAvatar(res.data);
+        if (res.code === 0 && res.data) {
+          onSuccess(res.data);
+          setUserAvatar(res.data);
+        }
       } catch (error: any) {
         onError(error);
         message.error('文件上传失败', error.message);
